@@ -1,0 +1,40 @@
+<routes> 
+<vType accel="1.0" decel="4.5" id="standard_car" length="5.0" minGap="2.5" maxSpeed="25" sigma="0.5" />
+<route id="E_N" edges="1i 2o"/>
+<route id="E_W" edges="1i 3o"/>
+<route id="E_S" edges="1i 4o"/>
+<route id="N_W" edges="2i 3o"/>
+<route id="N_S" edges="2i 4o"/>
+<route id="N_E" edges="2i 1o"/>
+<route id="W_S" edges="3i 4o"/>
+<route id="W_E" edges="3i 1o"/>
+<route id="W_N" edges="3i 2o"/>
+<route id="S_E" edges="4i 1o"/>
+<route id="S_N" edges="4i 2o"/>
+<route id="S_W" edges="4i 3o"/>
+<vehicle id="E_S_1" type="standard_car" route="E_S" depart="1" departLane="random" departSpeed="10" />
+<vehicle id="N_W_1" type="standard_car" route="N_W" depart="1" departLane="random" departSpeed="10" />
+<vehicle id="N_S_1" type="standard_car" route="N_S" depart="1" departLane="random" departSpeed="10" />
+<vehicle id="E_N_2" type="standard_car" route="E_N" depart="2" departLane="random" departSpeed="10" />
+<vehicle id="E_S_2" type="standard_car" route="E_S" depart="2" departLane="random" departSpeed="10" />
+<vehicle id="S_N_2" type="standard_car" route="S_N" depart="2" departLane="random" departSpeed="10" />
+<vehicle id="W_E_3" type="standard_car" route="W_E" depart="3" departLane="random" departSpeed="10" />
+<vehicle id="S_W_3" type="standard_car" route="S_W" depart="3" departLane="random" departSpeed="10" />
+<vehicle id="N_E_4" type="standard_car" route="N_E" depart="4" departLane="random" departSpeed="10" />
+<vehicle id="W_E_4" type="standard_car" route="W_E" depart="4" departLane="random" departSpeed="10" />
+<vehicle id="E_N_5" type="standard_car" route="E_N" depart="5" departLane="random" departSpeed="10" />
+<vehicle id="E_W_5" type="standard_car" route="E_W" depart="5" departLane="random" departSpeed="10" />
+<vehicle id="N_W_5" type="standard_car" route="N_W" depart="5" departLane="random" departSpeed="10" />
+<vehicle id="N_S_5" type="standard_car" route="N_S" depart="5" departLane="random" departSpeed="10" />
+<vehicle id="W_E_5" type="standard_car" route="W_E" depart="5" departLane="random" departSpeed="10" />
+<vehicle id="S_E_5" type="standard_car" route="S_E" depart="5" departLane="random" departSpeed="10" />
+<vehicle id="N_W_6" type="standard_car" route="N_W" depart="6" departLane="random" departSpeed="10" />
+<vehicle id="N_E_6" type="standard_car" route="N_E" depart="6" departLane="random" departSpeed="10" />
+<vehicle id="W_E_6" type="standard_car" route="W_E" depart="6" departLane="random" departSpeed="10" />
+<vehicle id="S_N_6" type="standard_car" route="S_N" depart="6" departLane="random" departSpeed="10" />
+<vehicle id="N_W_7" type="standard_car" route="N_W" depart="7" departLane="random" departSpeed="10" />
+<vehicle id="W_N_7" type="standard_car" route="W_N" depart="7" departLane="random" departSpeed="10" />
+<vehicle id="S_W_7" type="standard_car" route="S_W" depart="7" departLane="random" departSpeed="10" />
+<vehicle id="E_W_8" type="standard_car" route="E_W" depart="8" departLane="random" departSpeed="10" />
+<vehicle id="N_W_8" type="standard_car" route="N_W" depart="8" departLane="random" departSpeed="10" />
+</routes>
