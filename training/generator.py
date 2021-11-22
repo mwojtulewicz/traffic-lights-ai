@@ -1,10 +1,10 @@
 import numpy as np
 import itertools
-from typing import List, Union
+from typing import List, Union, Tuple
 
 
 class TrafficGenerator:
-    def __init__(self, max_steps:int, route_car_freq:Union[None,List[float]]=None):
+    def __init__(self, max_steps:int, route_car_freq:Union[None, List[float]] = None):
         self.max_steps = max_steps
         # nodes
         self.nodes = {1:'E', 2:'N', 3:'W', 4:'S'}
@@ -16,7 +16,7 @@ class TrafficGenerator:
         else:
             self.route_car_freq = route_car_freq
 
-    def generate_route_file(self, seed:Union[None,int]=None, route_file:str='intersection/my_net.rou.xml'):
+    def generate_route_file(self, seed:Union[None, int] = None, route_file:str = 'intersection/my_net.rou.xml'):
         if seed is not None:
             np.random.seed(seed)
         
@@ -32,16 +32,16 @@ class TrafficGenerator:
                     if rnd<=self.route_car_freq[j]:
                         print(f'<vehicle id="{route}_{i}" type="standard_car" route="{route}" depart="{i}" departLane="random" departSpeed="10" />', file=rf)
 
-            print('</routes>',file=rf)
+            print('</routes>', file=rf)
     
-    def create_route_tuple(self, start_id, turn):
+    def create_route_tuple(self, start_id:int, turn:str) -> Tuple[str, str, str]:
         # returns a tuple: route_name, start_edge, destination_edge
         node_lut = [0, 1, 2, 3, 4, 1, 2, 3]
         turn_lut = {'r':1, 's':2, 'l':3}
         
-        dest_id = node_lut[start_id + turn_lut[turn]]
-        dest_name = self.nodes[dest_id]
         start_name = self.nodes[start_id]
+        dest_id = node_lut[start_id + turn_lut.get(turn, default=0)]
+        dest_name = self.nodes[dest_id]
         
         _name = f'{start_name}_{dest_name}'
         _s_edge = f'{start_id}i'
