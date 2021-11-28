@@ -40,7 +40,7 @@ class TrafficGenerator:
         turn_lut = {'r':1, 's':2, 'l':3}
         
         start_name = self.nodes[start_id]
-        dest_id = node_lut[start_id + turn_lut.get(turn, default=0)]
+        dest_id = node_lut[start_id + turn_lut.get(turn, 0)]
         dest_name = self.nodes[dest_id]
         
         _name = f'{start_name}_{dest_name}'
