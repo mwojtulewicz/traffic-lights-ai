@@ -22,6 +22,8 @@ class Environment():
         self.gen_traffic()
         self.run_sumo()
 
+        return self.get_state()
+
     def step(self, action):
         # TODO: enforce yellow lights and green lights duration (return in info dict?)
         # # chosen phase different from the last phase
@@ -45,7 +47,7 @@ class Environment():
 
     def get_state(self):
         """
-        State is represented by 8-element vector,
+        State is represented by 4-element vector,
         where each element is a total number of halting vehicles
         on a given edge.
         """
@@ -73,7 +75,6 @@ class Environment():
                     done = True 
                     break
 
-                # TODO: uwaga, tu może być błąd
                 total_waiting_time += waiting_time
 
         return total_waiting_time, done
@@ -94,7 +95,8 @@ class Environment():
             """, file=route_file)
 
             for step in range(self.max_steps):
-                direction = random.choice(['up', 'right', 'down', 'left'])
+                # direction = random.choice(['up', 'right', 'down', 'left'])
+                direction = 'up'
                 print(f'    <vehicle id="{direction}_{step}" type="car" route="{direction}" depart="{step}" />', 
                         file=route_file)
             

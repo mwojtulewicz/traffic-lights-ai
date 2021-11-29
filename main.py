@@ -20,7 +20,7 @@ if __name__ == '__main__':
     agent = agent.Agent()
     mean_rewards = []
 
-    for episode in range(10):
+    for episode in range(config.NUM_EPISODES):
         epsilon = 1.0 - (episode / config.NUM_EPISODES)
         cum_reward = 0
         old_state = env.reset()
@@ -30,16 +30,23 @@ if __name__ == '__main__':
             new_state, reward, done, _ = env.step(action)
             cum_reward += reward
 
-            agent.memory.add_sample((old_state, action, reward, new_state))
+            if config.TRAIN_MODE:
+                agent.memory.add_sample((old_state, action, reward, new_state))
             
             if done:
                 break
 
         traci.close() # TODO: move to Environment
         mean_rewards.append(cum_reward/i)
-        # agent.train()
 
-    # zapis wizualizacji
+        if config.TRAIN_MODE:
+            agent.train()
+
+    # model saving
+    if config.TRAIN_MODE:
+        agent.save_model()
+
+    # visualization
     plt.style.use('seaborn')
     plt.plot(mean_rewards)
     plt.xlabel('Episodes')

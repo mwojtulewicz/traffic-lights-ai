@@ -13,12 +13,12 @@ if __name__ == '__main__':
     sumo_binary = checkBinary('sumo-gui')
     traci.start([sumo_binary, '-c', './intersection/my_net.sumocfg', '--start', '-d 100'])
 
+    edges = ('1i', '2i', '3i', '4i')
+
     # pętla po epizodach
     for i in range(1000):
         traci.simulationStep()
         # print(traci.edge.getLastStepHaltingNumber('1i'))
         
-        if i < 500:
-            traci.trafficlight.setPhase('0', 0)
-        else:
-            traci.trafficlight.setPhase('0', 2)
+        for edge in edges:
+            print(f'{edge}: {traci.edge.getLastStepHaltingNumber(edge)}')
