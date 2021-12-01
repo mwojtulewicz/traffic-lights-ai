@@ -3,18 +3,36 @@ import matplotlib.pyplot as plt
 from pathlib import Path
 import tqdm
 import time
+import traci
+from typing import List
 
-from traffic_envs import Environment_NS_Only
+from traffic_envs import Environment_Trafic_Lights, State, Reward
 from memory import ReplayBuffer
 
 # ------------------------------------------------------------------------------------------------------------
+
+# state and reward
+
+class State_Dumm(State):
+    def __init__(self):
+        pass
+    def get(self) -> List[float]:
+        return [0]
+
+class Reward_Dummy(Reward):
+    def __init__(self):
+        pass
+    def calculate(self) -> float:
+        return float(traci.trafficlight.getPhase('0')==2)
 
 # env variables
 NET_DIR = 'intersection/'
 SUMO_CFG_FILE = NET_DIR + 'my_net.sumocfg'
 ROUTE_FILE = NET_DIR + 'my_net.rou.xml'
 MAX_STEPS = 1000
-GUI = False
+PHASE_CHANGE_DURATION = 5
+ROUTE_CAR_FREQ = [(i in [4,10])*0.01 for i in range(12)]
+GUI = True
 
 # training parameters
 NUM_EPISODES = 100
@@ -28,7 +46,7 @@ BATCH_SIZE = 32
 LR = 0.5
 GAMMA = 0.99
 MAX_EPS = 1
-MIN_EPS = 0.05
+MIN_EPS = 0.0
 EPS_DECAY = 0.05
 
 STATE_SHAPE = [1]
@@ -41,7 +59,10 @@ START_TIME = int(time.time())
 
 # ------------------------------------------------------------------------------------------------------------
 
-env = Environment_NS_Only(sumo_cfg_file=SUMO_CFG_FILE, route_file=ROUTE_FILE, max_steps=MAX_STEPS, gui=GUI)
+env = Environment_Trafic_Lights(
+    state_class=State_Dumm, reward_class=Reward_Dummy, max_steps=MAX_STEPS,
+    route_car_freq=ROUTE_CAR_FREQ, phase_change_duration=PHASE_CHANGE_DURATION,
+    sumo_cfg_file=SUMO_CFG_FILE, route_file=ROUTE_FILE,  gui=GUI)
 MODEL_DIR = Path(f'models/{env.__class__.__name__.lower()}/{START_TIME}')
 MODEL_DIR.mkdir(parents=True, exist_ok=True)
 
@@ -55,7 +76,7 @@ avg_episode_rewards_arr = np.zeros(shape=NUM_EPISODES)
 
 for episode in range(NUM_EPISODES):
     
-    epsilon = max(MAX_EPS - (episode+1)*EPS_DECAY, MIN_EPS)
+    epsilon = max(MAX_EPS - episode*EPS_DECAY, MIN_EPS)
     print(f'\nEPISODE: {episode+1:3d} of {NUM_EPISODES} --> {epsilon = :.2f}')
 
     episode_rewards = np.zeros(shape=MAX_TIMESTEPS)
@@ -64,10 +85,11 @@ for episode in range(NUM_EPISODES):
 
     for t in tqdm.trange(MAX_TIMESTEPS, position=0, leave=True):
 
-        if np.random.rand() <= epsilon:
-            action = np.random.choice(NUM_ACTIONS)
-        else:
-            action = np.argmax(Qtable[s_t])
+        # if np.random.rand() <= epsilon:
+        #     action = np.random.choice(NUM_ACTIONS)
+        # else:
+        #     action = np.argmax(Qtable[s_t])
+        action = 1
         
         s_t1, r_t, done, info = env.step(action)
 
