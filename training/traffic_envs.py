@@ -128,8 +128,6 @@ class Environment_Trafic_Lights:
     '''
 
     
-    
-    
     def __init__(self, state_class:State, reward_class:Reward, max_steps:int=1000, route_car_freq:Union[None,List[float]]=None,
                  sumo_cfg_file:str='intersection/my_net.sumocfg', route_file:str='intersection/my_net.rou.xml', 
                  gui:bool=False, yellow_duration:int=4, green_duration:int=4):
