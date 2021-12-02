@@ -17,6 +17,7 @@ if __name__ == '__main__':
 
     # pętla po epizodach
     for i in range(1000):
+        traci.gui.screenshot(traci.gui.getIDList()[0], f'./screenshots/{i}.png')
         traci.simulationStep()
         # print(traci.edge.getLastStepHaltingNumber('1i'))
         

@@ -42,16 +42,16 @@ if __name__ == '__main__':
         if config.TRAIN_MODE:
             agent.train()
 
-    # model saving
     if config.TRAIN_MODE:
+        # model saving
         agent.save_model()
 
-    # visualization
-    plt.style.use('seaborn')
-    plt.plot(mean_rewards)
-    plt.xlabel('Episodes')
-    plt.ylabel('Mean reward')
-    plt.savefig('./figures/rewards.png')
+        # visualization
+        plt.style.use('seaborn')
+        plt.plot(mean_rewards)
+        plt.xlabel('Episodes')
+        plt.ylabel('Mean reward')
+        plt.savefig('./figures/rewards.png')
 
 
 
