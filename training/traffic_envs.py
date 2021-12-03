@@ -2,9 +2,11 @@ import numpy as np
 import traci
 import sys, os
 from sumolib import checkBinary
-from generator import TrafficGenerator
 from typing import List, Union, Tuple
 
+from generator import TrafficGenerator
+from rewards import *
+from states import *
 
 def sumo_init(sumo_cfg_file:str, gui:bool):
     if 'SUMO_HOME' in os.environ:
@@ -15,29 +17,6 @@ def sumo_init(sumo_cfg_file:str, gui:bool):
     sumo_binary = checkBinary('sumo-gui') if gui else checkBinary('sumo')
     traci.start([sumo_binary, "-c", sumo_cfg_file, '--start' ])
     # traci.start([sumo_binary, "-c", sumo_cfg_file, '--start' , '--no-warnings'])
-
-
-class State:
-    """ State base class """
-    def __init__(self, **kw):
-        pass
-
-    def get(self) -> List[float]:
-        pass
-
-    def __str__(self):
-        return 'State Base Class'
-
-class Reward:
-    """ Reward base class """
-    def __init__(self, **kw):
-        pass 
-
-    def calculate(self) -> float:
-        pass
-
-    def __str__(self):
-        return 'Reward Base Class'
 
 
 class Environment_NS_Only:
@@ -128,7 +107,8 @@ class Environment_Trafic_Lights:
     '''
 
     
-    def __init__(self, state_class:State, reward_class:Reward, max_steps:int=1000, route_car_freq:Union[None,List[float]]=None,
+    def __init__(self, state_class : State, reward_class  :Union[Reward,DiffReward], 
+                 max_steps:int=1000, route_car_freq:Union[None,List[float]]=None,
                  sumo_cfg_file:str='intersection/my_net.sumocfg', route_file:str='intersection/my_net.rou.xml', 
                  gui:bool=False, yellow_duration:int=4, green_duration:int=4):
 
