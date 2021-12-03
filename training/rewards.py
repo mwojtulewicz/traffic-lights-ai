@@ -79,7 +79,7 @@ class Reward():
         self.type = 'other'
 
     @abstractmethod
-    def calculate(self):
+    def calculate(self) -> float:
         pass 
 
 class NegWaitReward(Reward):
