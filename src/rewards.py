@@ -27,7 +27,9 @@ class WaitDiffReward(DiffReward):
         return current
 
     def calculate(self):
-        return self.stored_val - self.read_current()
+        prev_val = self.stored_val
+        self.save_current()
+        return prev_val - self.stored_val
 
     def __str__(self):
         return "Total waiting time decrease"
@@ -41,7 +43,9 @@ class QueueDiffReward(DiffReward):
         return current
 
     def calculate(self):
-        return self.stored_val - self.read_current()
+        prev_val = self.stored_val
+        self.save_current()
+        return prev_val - self.stored_val
 
     def __str__(self):
         return "Total queue decrease"
@@ -55,7 +59,9 @@ class CountDiffReward(DiffReward):
         return current
 
     def calculate(self):
-        return self.stored_val - self.read_current()
+        prev_val = self.stored_val
+        self.save_current()
+        return prev_val - self.stored_val
 
     def __str__(self):
         return "Number of cars decrease (throughput)"

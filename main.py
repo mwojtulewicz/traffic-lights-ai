@@ -9,6 +9,8 @@ from sumolib import checkBinary
 import src.config as config
 import src.environment as environment
 import src.agent as agent
+import src.states as states
+import src.rewards as rewards
 
 if __name__ == '__main__':
     os.environ['SUMO_HOME'] = '/usr/share/sumo/'
@@ -16,8 +18,10 @@ if __name__ == '__main__':
     sys.path.append(tools)
     sumo_binary = checkBinary('sumo-gui')
     
-    env = environment.Environment(sumo_binary)
-    agent = agent.Agent()
+    state = states.CountState()
+    reward = rewards.WaitDiffReward()
+    env = environment.Environment(sumo_binary, state, reward)
+    agent = agent.Agent(state.shape)
     mean_rewards = []
 
     for episode in range(config.NUM_EPISODES):

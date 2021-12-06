@@ -1,11 +1,19 @@
 <routes>
-            <vType id="car" accel="0.8" decel="4.5" sigma="0.5" length="5" minGap="2.5" maxSpeed="16.67" guiShape="passenger"/>
-            
-            <route id="right" edges="3i 1o" />
-            <route id="left" edges="1i 3o" />
-            <route id="down" edges="2i 4o" />
-            <route id="up" edges="4i 2o" />
-            
+    <vType id="car" accel="0.8" decel="4.5" sigma="0.5" length="5" minGap="2.5" maxSpeed="16.67" guiShape="passenger"/>
+    
+    <route id="E_N" edges="1i 2o"/>
+    <route id="E_W" edges="1i 3o"/>
+    <route id="E_S" edges="1i 4o"/>
+    <route id="N_W" edges="2i 3o"/>
+    <route id="N_S" edges="2i 4o"/>
+    <route id="N_E" edges="2i 1o"/>
+    <route id="W_S" edges="3i 4o"/>
+    <route id="W_E" edges="3i 1o"/>
+    <route id="W_N" edges="3i 2o"/>
+    <route id="S_E" edges="4i 1o"/>
+    <route id="S_N" edges="4i 2o"/>
+    <route id="S_W" edges="4i 3o"/>
+    
     <vehicle id="up_0" type="car" route="up" depart="0" />
     <vehicle id="up_1" type="car" route="up" depart="1" />
     <vehicle id="up_2" type="car" route="up" depart="2" />

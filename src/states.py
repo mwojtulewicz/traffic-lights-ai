@@ -5,6 +5,7 @@ import numpy as np
 class State():
     def __init__(self):
         self.lanes = [lane for lane in traci.lane.getIDList() if 'i' in lane]
+        self.shape = (len(self.lanes),)
 
     @abstractmethod
     def get(self):

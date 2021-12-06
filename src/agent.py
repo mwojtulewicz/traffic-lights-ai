@@ -7,8 +7,8 @@ from .nn import get_model
 from . import config
 
 class Agent():
-    def __init__(self):
-        self.nn = get_model() # TODO: string-klucz wybierający różne modele
+    def __init__(self, input_shape):
+        self.nn = get_model(input_shape)
         self.memory = Memory(config.MEMORY_SIZE) # TODO: zmienić size
         self.num_actions = config.NUM_ACTIONS 
 

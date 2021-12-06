@@ -8,8 +8,10 @@ import numpy as np
 from . import config
 
 class Environment():
-    def __init__(self, sumo_binary):
+    def __init__(self, sumo_binary, state, reward):
         self.sumo_binary = checkBinary(sumo_binary)
+        self.state = state
+        self.reward = reward
 
         self.edges = ('1i', '2i', '3i', '4i') # TODO: change to lanes
         self.phase = -1 # TODO
@@ -88,15 +90,22 @@ class Environment():
             print("""<routes>
             <vType id="car" accel="0.8" decel="4.5" sigma="0.5" length="5" minGap="2.5" maxSpeed="16.67" guiShape="passenger"/>
             
-            <route id="right" edges="3i 1o" />
-            <route id="left" edges="1i 3o" />
-            <route id="down" edges="2i 4o" />
-            <route id="up" edges="4i 2o" />
+            <route id="E_N" edges="1i 2o"/>
+            <route id="E_W" edges="1i 3o"/>
+            <route id="E_S" edges="1i 4o"/>
+            <route id="N_W" edges="2i 3o"/>
+            <route id="N_S" edges="2i 4o"/>
+            <route id="N_E" edges="2i 1o"/>
+            <route id="W_S" edges="3i 4o"/>
+            <route id="W_E" edges="3i 1o"/>
+            <route id="W_N" edges="3i 2o"/>
+            <route id="S_E" edges="4i 1o"/>
+            <route id="S_N" edges="4i 2o"/>
+            <route id="S_W" edges="4i 3o"/>
             """, file=route_file)
 
             for step in range(self.max_steps):
-                # direction = random.choice(['up', 'right', 'down', 'left'])
-                direction = 'up'
+                direction = random.choice(['E_N', 'S_N'])
                 print(f'    <vehicle id="{direction}_{step}" type="car" route="{direction}" depart="{step}" />', 
                         file=route_file)
             
