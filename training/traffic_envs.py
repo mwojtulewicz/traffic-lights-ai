@@ -127,6 +127,18 @@ class Environment_Trafic_Lights:
         self._REWARD : Reward = reward_class()
 
         self._last_action = 0
+        
+        self._hp = {
+            "state_class": self._STATE.__class__.__name__,
+            "reward_class": self._REWARD.__class__.__name__,
+            "max_steps": max_steps,
+            "route_car_freq": route_car_freq,
+            "sumo_cfg_file": self._sumo_cfg_file,
+            "route_file": self._route_file,
+            "gui": self._gui,
+            "yellow_duration": self._yellow_duration,
+            "green_duration": self._green_duration
+        }
 
     def reset(self):
         """ resets the environment and returns s_0 """
@@ -187,6 +199,9 @@ class Environment_Trafic_Lights:
         """ performs given number of steps in SUMO simulation """
         for _ in range(duration):
             traci.simulationStep()
+    
+    def hiperparams(self) -> dict:
+        return self._hp
 
 
 if __name__=='__main__':
