@@ -8,23 +8,23 @@ import numpy as np
 from . import config
 
 class Environment():
-    def __init__(self, sumo_binary, state, reward):
-        self.sumo_binary = checkBinary(sumo_binary)
-        self.state = state
-        self.reward = reward
+    def __init__(self, state_class, reward_class):
+        self.state_class = state_class
+        self.reward_class = reward_class
 
-        self.edges = ('1i', '2i', '3i', '4i') # TODO: change to lanes
-        self.phase = -1 # TODO
-        self.yellow_steps_left = 0
-        self.waiting_time = 0
-        self.max_steps = config.MAX_STEPS
+        self.sumo_binary = checkBinary(config.SUMO_BINARY)
+        self.state_obj = None
+        self.reward_obj = None
+        self.phase = -1
 
     def reset(self):
-        # nadpisanie odpowiednich zmiennych
         self.gen_traffic()
         self.run_sumo()
 
-        return self.get_state()
+        self.state_obj = self.state_class()
+        self.reward_obj = self.reward_class()
+
+        return self.state_obj.get()
 
     def step(self, action):
         # TODO: enforce yellow lights and green lights duration (return in info dict?)
@@ -39,33 +39,18 @@ class Environment():
         traci.trafficlight.setPhase('0', action) # junction id as 1st arg
         self.phase = action
         traci.simulationStep()
-        current_state = self.get_state()
 
-        current_waiting_time, done = self.get_waiting_time()
-        reward = self.waiting_time - current_waiting_time
-        self.waiting_time = current_waiting_time
+        new_state = self.state_obj.get()
+        reward = self.reward_obj.calculate() 
+        done = self.check_done()
         
-        return current_state, reward, done, {}
+        return new_state, reward, done, {}
 
-    def get_state(self):
+    def check_done(self):
         """
-        State is represented by 4-element vector,
-        where each element is a total number of halting vehicles
-        on a given edge.
+        Check if any car waited for more than MAX_WAITING_TIME.
         """
 
-        state = np.zeros(len(self.edges))
-        for i, edge in enumerate(self.edges):
-            state[i] = traci.edge.getLastStepHaltingNumber(edge)
-
-        return state
-
-    def get_waiting_time(self):
-        """
-        Use sum of waiting times to determine reward.
-        """
-
-        total_waiting_time = 0
         done = False
 
         car_ids = traci.vehicle.getIDList()
@@ -77,9 +62,7 @@ class Environment():
                     done = True 
                     break
 
-                total_waiting_time += waiting_time
-
-        return total_waiting_time, done
+        return done
 
     def run_sumo(self):
         traci.start([self.sumo_binary, '-c', './intersection/my_net.sumocfg', 
@@ -104,9 +87,13 @@ class Environment():
             <route id="S_W" edges="4i 3o"/>
             """, file=route_file)
 
-            for step in range(self.max_steps):
-                direction = random.choice(['E_N', 'S_N'])
-                print(f'    <vehicle id="{direction}_{step}" type="car" route="{direction}" depart="{step}" />', 
+            for step in range(config.MAX_STEPS):
+                direction = random.choice(['E_N', 'E_W', 'E_S', 
+                                           'N_W', 'N_S', 'N_E',
+                                           'W_S', 'W_E', 'W_N',
+                                           'S_E', 'S_N', 'S_W'])
+                # direction='S_N'
+                print(f'    <vehicle id="{direction}_{step}" type="car" route="{direction}" depart="{step}" departLane="random"/>', 
                         file=route_file)
             
             print('</routes>', file=route_file)

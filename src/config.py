@@ -1,4 +1,5 @@
-TRAIN_MODE = True
+SUMO_BINARY = 'sumo-gui'
+TRAIN_MODE = False
 
 NUM_EPISODES = 20 # TODO: change
 MAX_STEPS = 1000 # TODO: change
@@ -8,6 +9,7 @@ YELLOW_DURATION = 3 # TODO: change
 MAX_WAITING_TIME = 90 # TODO: change
 
 NUM_ACTIONS = 8
+STATES_LEN = 16
 MEMORY_SIZE = 640 # TODO: change
 NUM_TRAIN_STEPS = 20 # TODO: change
 BATCH_SIZE = 32

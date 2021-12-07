@@ -5,8 +5,8 @@ from tensorflow.keras.optimizers import Adam
 
 from . import config
 
-def get_model(input_shape):
-    inputs = Input(shape=input_shape)
+def get_model():
+    inputs = Input(shape=(config.STATES_LEN,))
 
     x = Dense(64, activation='relu')(inputs)
     for _ in range(5):

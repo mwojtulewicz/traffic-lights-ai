@@ -5,7 +5,7 @@ class DiffReward():
     def __init__(self):
         self.lanes = [lane for lane in traci.lane.getIDList() if 'i' in lane]
         self.type = 'diff'
-        self.stored_val = None
+        self.stored_val = 0
 
     @abstractmethod
     def read_current(self):

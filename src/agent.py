@@ -7,10 +7,11 @@ from .nn import get_model
 from . import config
 
 class Agent():
-    def __init__(self, input_shape):
-        self.nn = get_model(input_shape)
+    def __init__(self):
         self.memory = Memory(config.MEMORY_SIZE) # TODO: zmienić size
         self.num_actions = config.NUM_ACTIONS 
+        self.states_len = config.STATES_LEN
+        self.nn = get_model()
 
         if not config.TRAIN_MODE:
             self.load_model()
@@ -32,7 +33,7 @@ class Agent():
             next_q_pred = self.nn.predict(next_states)
 
             # calculating "true" labels
-            x = np.zeros((config.BATCH_SIZE, 4)) # 4 possible states
+            x = np.zeros((config.BATCH_SIZE, self.states_len))
             y = np.zeros((config.BATCH_SIZE, self.num_actions))
 
             for i, sample in enumerate(batch):

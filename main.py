@@ -4,7 +4,6 @@ import sys
 import matplotlib.pyplot as plt
 
 import traci
-from sumolib import checkBinary
 
 import src.config as config
 import src.environment as environment
@@ -16,12 +15,11 @@ if __name__ == '__main__':
     os.environ['SUMO_HOME'] = '/usr/share/sumo/'
     tools = os.path.join(os.environ['SUMO_HOME'], 'tools')
     sys.path.append(tools)
-    sumo_binary = checkBinary('sumo-gui')
     
-    state = states.CountState()
-    reward = rewards.WaitDiffReward()
-    env = environment.Environment(sumo_binary, state, reward)
-    agent = agent.Agent(state.shape)
+    state_class = states.CountState
+    reward_class = rewards.WaitDiffReward
+    env = environment.Environment(state_class, reward_class)
+    agent = agent.Agent()
     mean_rewards = []
 
     for episode in range(config.NUM_EPISODES):
