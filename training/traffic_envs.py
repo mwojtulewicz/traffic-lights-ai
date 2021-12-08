@@ -110,7 +110,7 @@ class Environment_Trafic_Lights:
     def __init__(self, state_class : State, reward_class : Union[Reward, DiffReward], 
                  max_steps : int = 1000, route_car_freq : Union[None,List[float]] = None,
                  sumo_cfg_file : str = 'intersection/my_net.sumocfg', route_file : str = 'intersection/my_net.rou.xml', 
-                 gui : bool = False, yellow_duration : int = 4, green_duration : int = 4):
+                 gui : bool = False, yellow_duration : int = 4, green_duration : int = 4, **kwargs):
 
         self.traffic_generator = TrafficGenerator(route_car_freq=route_car_freq, max_steps=max_steps*(yellow_duration+green_duration))
         self.traffic_generator.generate_route_file(route_file=route_file)
