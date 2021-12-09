@@ -108,13 +108,15 @@ def test_agent(model_dir: Union[str,Path], checkpoint_episode: Union[int,str] = 
 
     print(f'\n{avg_reward = :.4f}\n')
 
-    environment.close()
-
+    plt.figure(figsize=(16,8.2))
     sn.histplot(rewards, discrete=True, kde=True)
     plt.title('Reward value distribution')
     plt.ylabel('Count')
     plt.xlabel('Value')
+    plt.tight_layout()
     plt.show()
+    
+    environment.close()
     
     
     
