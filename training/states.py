@@ -3,6 +3,8 @@ import traci
 import numpy as np
 
 
+def get_states_tuple(who: str = ""):
+    return (QueueState, CountState, WaitState)
 
 class State():
     """ Abstract class for environment's state representation """
@@ -45,6 +47,10 @@ class QueueState(State):
 
     def __str__(self):
         return "Queue lengths"
+    
+    @staticmethod
+    def desc():
+        return "Queue length (per lane)"
 
 
 class CountState(State):
@@ -61,6 +67,10 @@ class CountState(State):
 
     def __str__(self):
         return "Number of cars"
+    
+    @staticmethod
+    def desc():
+        return "Number of cars (per lane)"
 
 
 class WaitState(State):
@@ -77,3 +87,7 @@ class WaitState(State):
 
     def __str__(self):
         return "Total waiting times"
+    
+    @staticmethod
+    def desc():
+        return "Sum of fuel consumption (per lane)"

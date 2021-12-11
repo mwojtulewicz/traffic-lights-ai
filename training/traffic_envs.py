@@ -88,7 +88,7 @@ class Environment_NS_Only:
         return False
 
 
-class Environment_Trafic_Lights:
+class Environment_Traffic_Lights:
     '''
     traffic lights environment base
         - state: any State inheriting class
@@ -139,6 +139,8 @@ class Environment_Trafic_Lights:
             "yellow_duration": self._yellow_duration,
             "green_duration": self._green_duration
         }
+        
+        self.reset()
 
     def reset(self):
         """ resets the environment and returns s_0 """

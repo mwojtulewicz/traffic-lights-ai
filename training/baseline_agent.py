@@ -67,11 +67,13 @@ class Alternating_Phases(Baseline_Agent):
     
     
 def test_baseline_agent(env_class: str, agent_class: Baseline_Agent, env_params: dict, agent_params: dict, metrics: list = [],
-                        max_timesteps: int = 10000, verbose: bool = False, verbose_freq: int = 10,
+                        max_timesteps: int = 10000, gui: bool = False, verbose: bool = False, verbose_freq: int = 10,
                         **kwargs):
     
+    # TODO: metrics
+    
     env_class = getattr(envs, env_class)
-    env = env_class(**{**env_params, "max_steps":max_timesteps})
+    env = env_class(**{**env_params, "max_steps":max_timesteps, "gui": gui})
     
     agent = agent_class(**agent_params)
     
@@ -103,13 +105,14 @@ def test_baseline_agent(env_class: str, agent_class: Baseline_Agent, env_params:
 
     print(f'\n{avg_reward = :.4f}\n')
 
-    plt.figure(figsize=(16,8.2))
-    sn.histplot(rewards, discrete=True, kde=True)
-    plt.title('Reward value distribution')
-    plt.ylabel('Count')
-    plt.xlabel('Value')
-    plt.tight_layout()
-    plt.show()
+    if verbose:
+        plt.figure(figsize=(16,8.2))
+        sn.histplot(rewards, discrete=True, kde=True)
+        plt.title('Reward value distribution')
+        plt.ylabel('Count')
+        plt.xlabel('Value')
+        plt.tight_layout()
+        plt.show()
     
     env.close()
     
@@ -120,7 +123,6 @@ if __name__=='__main__':
     
     env_params = {
         "route_car_freq": [0.02, 0.05, 0.01]*4,
-        "gui": True,
         "yellow_duration": 4,
         "green_duration": 1,
         "state_class": QueueState,
@@ -128,10 +130,10 @@ if __name__=='__main__':
     }
     
     agent_params = {
-        "phases_durations": [40, 20, 40, 20]
+        "phases_durations": [10, 3, 10, 3]
     }
     
     test_baseline_agent(env_class=env_class, agent_class=agent_class, 
                         env_params=env_params, agent_params=agent_params, 
-                        max_timesteps=1000, verbose=True)
+                        max_timesteps=1000, verbose=False, gui=False)
     

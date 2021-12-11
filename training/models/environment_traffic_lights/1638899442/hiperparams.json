@@ -21,7 +21,7 @@
   "gui": false,
   "yellow_duration": 4,
   "green_duration": 4,
-  "environment": "Environment_Trafic_Lights",
+  "environment": "Environment_Traffic_Lights",
   "num_episodes": 500,
   "max_timesteps": 10000,
   "min_buffer_lenth": 10000,

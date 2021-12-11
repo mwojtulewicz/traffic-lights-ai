@@ -68,8 +68,10 @@ class Agent:
     
     
 def test_agent(model_dir: Union[str,Path], checkpoint_episode: Union[int,str] = -1, max_timesteps: int = 1000, 
-               gui: bool = True, verbose: bool = True, verbose_freq: int = 10,
+               gui: bool = True, verbose: bool = True, verbose_freq: int = 10, metrics: list = [],
                **kwargs):
+    
+    # TODO: metrics
     
     agent = Agent(model_dir)
     
@@ -122,7 +124,7 @@ def test_agent(model_dir: Union[str,Path], checkpoint_episode: Union[int,str] = 
     
 if __name__=="__main__":
     
-    MODEL_DIR = "models/environment_trafic_lights/1638899442"
+    MODEL_DIR = "models/environment_traffic_lights/1638899442"
     
     test_agent(model_dir=MODEL_DIR)
     
