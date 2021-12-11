@@ -42,7 +42,7 @@ class Agent():
                 q_pred[i][action] = reward + config.GAMMA * np.amax(next_q_pred[i])
                 y[i] = q_pred[i]
 
-            self.nn.fit(x, y, epochs=1, verbose=1)
+            self.nn.fit(x, y, epochs=1, verbose=0)
 
     def save_model(self):
         self.nn.save_weights('./checkpoints/checkpoint.h5')

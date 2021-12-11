@@ -128,14 +128,14 @@
     </edge>
 
     <tlLogic id="0" type="static" programID="0" offset="0">
-        <phase duration="100" state="GGGGrrrrrrGGGGrrrrrr"/>
-        <phase duration="100" state="yyyyrrrrrryyyyrrrrrr"/>
-        <phase duration="100" state="rrrrGrrrrrrrrrGrrrrr"/>
-        <phase duration="100" state="rrrryrrrrrrrrryrrrrr"/>
-        <phase duration="100" state="rrrrrGGGGrrrrrrGGGGr"/>
-        <phase duration="100" state="rrrrryyyyrrrrrryyyyr"/>
-        <phase duration="100" state="rrrrrrrrrGrrrrrrrrrG"/>
-        <phase duration="100" state="rrrrrrrrryrrrrrrrrry"/>
+        <phase duration="1000000" state="GGGGrrrrrrGGGGrrrrrr"/>
+        <phase duration="1000000" state="yyyyrrrrrryyyyrrrrrr"/>
+        <phase duration="1000000" state="rrrrGrrrrrrrrrGrrrrr"/>
+        <phase duration="1000000" state="rrrryrrrrrrrrryrrrrr"/>
+        <phase duration="1000000" state="rrrrrGGGGrrrrrrGGGGr"/>
+        <phase duration="1000000" state="rrrrryyyyrrrrrryyyyr"/>
+        <phase duration="1000000" state="rrrrrrrrrGrrrrrrrrrG"/>
+        <phase duration="1000000" state="rrrrrrrrryrrrrrrrrry"/>
     </tlLogic>
 
     <junction id="0" type="traffic_light" x="0.00" y="0.00" incLanes="2i_0 2i_1 2i_2 2i_3 1i_0 1i_1 1i_2 1i_3 4i_0 4i_1 4i_2 4i_3 3i_0 3i_1 3i_2 3i_3" intLanes=":0_0_0 :0_1_0 :0_1_1 :0_1_2 :0_4_0 :0_5_0 :0_6_0 :0_6_1 :0_6_2 :0_9_0 :0_10_0 :0_11_0 :0_11_1 :0_11_2 :0_14_0 :0_15_0 :0_16_0 :0_16_1 :0_16_2 :0_19_0" shape="-12.80,16.80 12.80,16.80 13.24,14.58 13.80,13.80 14.58,13.24 15.58,12.91 16.80,12.80 16.80,-12.80 14.58,-13.24 13.80,-13.80 13.24,-14.58 12.91,-15.58 12.80,-16.80 -12.80,-16.80 -13.24,-14.58 -13.80,-13.80 -14.58,-13.24 -15.58,-12.91 -16.80,-12.80 -16.80,12.80 -14.58,13.24 -13.80,13.80 -13.24,14.58 -12.91,15.58">
