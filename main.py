@@ -15,7 +15,7 @@ if __name__ == '__main__':
     sys.path.append(tools)
 
     state_class = states.CountState
-    reward_class = rewards.WaitDiffReward
+    reward_class = rewards.ThroughputReward
     env = environment.Environment(state_class, reward_class)
     agent = agent.Agent()
 
@@ -43,7 +43,7 @@ if __name__ == '__main__':
             if config.TRAIN_MODE:
                 agent.memory.add_sample((old_state, action, reward, new_state))
             
-            if done:
+            if done and config.TRAIN_MODE:
                 break
 
         traci.close() # TODO: move to Environment
@@ -59,8 +59,8 @@ if __name__ == '__main__':
         # model saving
         agent.save_model()
 
-    # visualization
-    plotting.save_plots(mean_rewards, mean_throughput, mean_queue_len)
+        # visualization
+        plotting.save_plots(mean_rewards, mean_throughput, mean_queue_len)
 
 
 

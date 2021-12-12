@@ -57,7 +57,11 @@ class Environment():
         self.phase = action
         new_state = self.state_obj.get()
         done = self.check_done()
-        reward = self.reward_obj.calculate() 
+        if done:
+            reward = -100
+            print('Done')
+        else:
+            reward = self.reward_obj.calculate() 
 
         # calculate info metrics
         info = {
@@ -109,12 +113,14 @@ class Environment():
             """, file=route_file)
 
             for step in range(config.MAX_STEPS):
-                # direction = random.choice(['E_N', 'E_W', 'E_S', 
-                #                            'N_W', 'N_S', 'N_E',
-                #                            'W_S', 'W_E', 'W_N',
-                #                            'S_E', 'S_N', 'S_W'])
-                direction='S_N'
-                print(f'    <vehicle id="{direction}_{step}" type="car" route="{direction}" depart="{step}" departLane="random"/>', 
-                        file=route_file)
+                if step % 2:
+                    direction = random.choices(['E_N', 'E_W', 'E_S', 
+                                            'N_W', 'N_S', 'N_E',
+                                            'W_S', 'W_E', 'W_N',
+                                            'S_E', 'S_N', 'S_W'],
+                                            weights=[1, 2, 1, 1, 2, 1, 1, 2, 1, 1, 2, 1], k=1)[0]
+                    # direction='S_N'
+                    print(f'    <vehicle id="{direction}_{step}" type="car" route="{direction}" depart="{step}" departLane="random"/>', 
+                            file=route_file)
             
             print('</routes>', file=route_file)

@@ -8,9 +8,9 @@ from . import config
 def get_model():
     inputs = Input(shape=(config.STATES_LEN,))
 
-    x = Dense(64, activation='relu')(inputs)
+    x = Dense(256, activation='relu')(inputs)
     for _ in range(5):
-        x = Dense(64, activation='relu')(x)
+        x = Dense(256, activation='relu')(x)
 
     outputs = Dense(config.NUM_ACTIONS, activation='linear')(x)
 
