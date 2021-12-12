@@ -186,10 +186,10 @@ for experiment_number, (state_class, reward_class) in enumerate(product(STATES, 
 
         print(f' --- {avg_episode_loss = :.4f} -- {avg_episode_reward = :.2f}')
 
-        if keyboard.is_pressed('ctrl+space+1'):
-            print(f'training interrupted after {episode+1} episode, saving...')
-            torch.save(Qnet.state_dict(), MODEL_DIR / 'checkpoints' / f'ep{episode+1:05d}.pt')
-            break
+        # if keyboard.is_pressed('ctrl+space+1'):
+        #     print(f'training interrupted after {episode+1} episode, saving...')
+        #     torch.save(Qnet.state_dict(), MODEL_DIR / 'checkpoints' / f'ep{episode+1:05d}.pt')
+        #     break
 
     env.close()
 
