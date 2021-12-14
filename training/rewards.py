@@ -3,12 +3,17 @@ import traci
 
 
 def get_rewards_tuple(who: str = ""):
+    """ Returns rewards tuple for experiments based on ```who``` is asking ;) """
     if who == "Wojtek":
         return (WaitDiffReward, QueueDiffReward)
     elif who == "Mateusz":
         return (NegWaitReward, NegQueueReward, ThroughputReward)
     else:
         raise Exception("Who are you?")
+    
+def get_metrics_tuple():
+    """ Returns a tuple containing all possible metrics for testing """
+    return QueueMetric, ThroughputReward
 
 
 class DiffReward():
@@ -149,7 +154,7 @@ class SpeedReward(Reward):
 
 
 class ThroughputReward():
-    """ number of vehicles that passed the intersection since last step """
+    """ Number of vehicles that passed the intersection since last step """
     def __init__(self):
         self.vehicles = self.read_current() 
 
@@ -172,3 +177,21 @@ class ThroughputReward():
     @staticmethod
     def desc():
         return "Total throughput"
+
+
+class QueueMetric(Reward):
+    """ Number of waiting cars on incoming lanes - metric"""
+    
+    def calculate(self):
+        current = 0
+        for lane in self.lanes:
+            current += traci.lane.getLastStepHaltingNumber(lane)
+
+        return current 
+
+    def __str__(self):
+        return "Total queue metric"
+    
+    @staticmethod
+    def desc():
+        return "Total queue metric"

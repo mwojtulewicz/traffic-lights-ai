@@ -90,4 +90,4 @@ class WaitState(State):
     
     @staticmethod
     def desc():
-        return "Sum of fuel consumption (per lane)"
+        return "Total waiting times"
