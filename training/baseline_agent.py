@@ -159,13 +159,13 @@ if __name__=='__main__':
     }
     
     agent_params = {
-        "phases_durations": [10, 2, 10, 2]
+        "phases_durations": [7, 3, 7, 3]
     }
     
     df = test_baseline_agent(env_class=env_class, agent_class=agent_class, 
                              env_params=env_params, agent_params=agent_params, 
                              max_timesteps=500, verbose=True, verbose_freq=50, gui=False, 
-                             summary=True, show=False, metric_classes=get_metrics_tuple())
+                             summary=True, show=True, metric_classes=get_metrics_tuple())
     
     print(df)
     

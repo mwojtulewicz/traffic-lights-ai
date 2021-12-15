@@ -183,18 +183,23 @@ def models_summaries(models_dir: Union[str,Path], timesteps: int = 1000, metric_
     
 if __name__=="__main__":
     
-    # MODEL_DIR = "models/environment_traffic_lights/1638899442"
-    # df = test_agent(model_dir=MODEL_DIR, checkpoint_episode=-1,
-    #                 max_timesteps=1000, gui=False,
-    #                 verbose=True, verbose_freq=50,
-    #                 summary=True, show=False, 
-    #                 metric_classes=get_metrics_tuple())
-    # print(df)
-    
-    np.random.seed()
-    
-    test_models_dir = Path("models/environment_traffic_lights")
-    df = models_summaries(models_dir=test_models_dir, timesteps=1000, seed=0)
+    MDIR0 = "models/environment_traffic_lights/1638899442"  # najmniejszy średni korek, queue state, neg queue reward
+    MDIR1 = "models/environment_traffic_lights/1639338086"  # najwiekszy throughput, wait state, neg wait reward
+    MDIR2 = "models/environment_traffic_lights/1639402144"  # najgorszy, wait state, queue diff reward
+
+    MODEL_DIR = [MDIR0, MDIR1, MDIR2][1]
+
+    df = test_agent(model_dir=MODEL_DIR, checkpoint_episode=-1,
+                    max_timesteps=500, gui=True,
+                    verbose=True, verbose_freq=50,
+                    summary=True, show=True, 
+                    metric_classes=get_metrics_tuple())
     print(df)
     
-    df.to_excel(test_models_dir / "summaries.xlsx")
+    # np.random.seed()
+    
+    # test_models_dir = Path("models/environment_traffic_lights")
+    # df = models_summaries(models_dir=test_models_dir, timesteps=1000, seed=0)
+    # print(df)
+    
+    # df.to_excel(test_models_dir / "summaries.xlsx")
